@@ -11,6 +11,11 @@ generate.addEventListener("click", event => {
 let clear = document.querySelector("#clear");
 clear.addEventListener("click", clearGrid);
 
+function changeGrid(){
+    let gridNumber = document.getElementById("grid-number").value;
+    createGrid(gridNumber, gridNumber);
+}
+
 function createGrid(x, y){
     let mainGrid = document.querySelector(".grid");
     while (mainGrid.firstChild) {
@@ -26,6 +31,8 @@ function createGrid(x, y){
     else if(y === ""){
         y = x;
     }
+
+    let gridSize = 500 / x;
     
     for(let i = 0; i < y; i++){
         let newLine = document.createElement("div");
@@ -33,6 +40,8 @@ function createGrid(x, y){
         mainGrid.appendChild(newLine);
         for(let j = 0; j < x; j++){
             let newGrid = document.createElement("div");
+            newGrid.style.height = `${gridSize}px`;
+            newGrid.style.width = `${gridSize}px`;
             newGrid.classList.add("gridsquare");
             newLine.appendChild(newGrid);
         }
