@@ -1,3 +1,15 @@
+createGrid("","");
+paintIt();
+
+let generate = document.querySelector("#generate");
+generate.addEventListener("click", event => {
+    let xgrid = document.getElementById("xgrid").value;
+    let ygrid = document.getElementById("ygrid").value;
+    createGrid(xgrid,ygrid);
+});
+
+let clear = document.querySelector("#clear");
+clear.addEventListener("click", clearGrid);
 
 function createGrid(x, y){
     let mainGrid = document.querySelector(".grid");
@@ -25,46 +37,15 @@ function createGrid(x, y){
             newLine.appendChild(newGrid);
         }
     }
-    
+    paintIt();
 }
 
 function clearGrid(){
-/* event => {
-    let grids = document.querySelectorAll(".gridsquare");
-    grids.forEach(function(item){
-        item.style.background = "gray";
-    });
-    paintIt();
-}*/
 let grids = document.querySelectorAll(".gridsquare");
 grids.forEach(function(item){
-    item.classList.remove("bleck");
-    item.classList.remove("whitee");
+    item.style.backgroundColor = "gray";
 });
 paintIt();
-
-}
-
-createGrid("","");
-paintIt(); //itt a hiba ez amúgy a generatenál van de akkor mindig feketevel szinez generate után, így meg nem színez generate utűn
-
-let generate = document.querySelector("#generate");
-generate.addEventListener("click", event => {
-    let xgrid = document.getElementById("xgrid").value;
-    let ygrid = document.getElementById("ygrid").value;
-    createGrid(xgrid,ygrid);
-});
-
-let clear = document.querySelector("#clear");
-clear.addEventListener("click", clearGrid);
-
-function paintIt(){
-    let grids = document.querySelectorAll(".gridsquare");
-    grids.forEach(function(item){
-        item.addEventListener("mouseover", event => {
-        item.classList.add("bleck");
-        })
-    });
 }
 
 let whit = document.querySelector("#whit");
@@ -74,8 +55,16 @@ function whitee(){
     let grids = document.querySelectorAll(".gridsquare");
     grids.forEach(function(item){
         item.addEventListener("mouseover", event => {
-        item.classList.add("whitee");
+        item.style.backgroundColor = "white";
         })
     });
 }
 
+function paintIt(){
+    let grids = document.querySelectorAll(".gridsquare");
+    grids.forEach(function(item){
+        item.addEventListener("mouseover", event => {
+        item.style.backgroundColor = "black";
+        })
+    });
+}
