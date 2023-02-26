@@ -1,5 +1,5 @@
-const DEFAULT_COLOR = "#000000";
-const CLEAR_COLOR = "#ffffff";
+const DEFAULT_COLOR = "#4D455D";
+const CLEAR_COLOR = "#ffffffb3";
 const DEFAULT_SIZE = 16;
 const DEFAULT_MODE = "normal";
 
@@ -85,23 +85,23 @@ function changeGrid(){
     createGrid(currentSize);
 }
 
-function changeMode(e){
+function changeMode(event){
     choices.forEach(function(item){
         item.classList.remove("active");
     });
-    e.target.classList.add("active");
+    event.target.classList.add("active");
 }
 
-function paintIt(e){
+function paintIt(event){
     if(!mouseDown) return;
     if(currentMode == "normal"){
-        e.target.style.backgroundColor = currentColor;
+        event.target.style.backgroundColor = currentColor;
     }
     else{
         let red = Math.floor(Math.random() * 256)
         let green = Math.floor(Math.random() * 256)
         let blue = Math.floor(Math.random() * 256)
-        e.target.style.backgroundColor = `rgb(${red},${green},${blue})`;
+        event.target.style.backgroundColor = `rgb(${red},${green},${blue})`;
     }
 }
 
