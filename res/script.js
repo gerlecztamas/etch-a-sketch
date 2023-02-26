@@ -8,56 +8,46 @@ let currentMode = DEFAULT_MODE;
 let currentSize = DEFAULT_SIZE;
 
 
-
-
-let clear = document.querySelector("#clear");
-clear.addEventListener("click", clearGrid);
+let choices = document.querySelectorAll(".choice");
 
 let colorChoice = document.getElementById("color-choice");
 let randomColor = document.getElementById("random");
 let eraser = document.querySelector("#eraser");
-let colorChanger = document.getElementById("colorpicker");
-
-function changeGrid(){
-    currentSize = document.getElementById("grid-number").value;
-    createGrid(currentSize);
-}
+let clear = document.querySelector("#clear");
+let colorChange = document.getElementById("colorpicker");
 
 
-colorChoice.addEventListener("click", event => {
+colorChoice.addEventListener("click", colorChooser);
+randomColor.addEventListener("click", colorRandomizer);
+eraser.addEventListener("click", erase);
+clear.addEventListener("click", clearGrid);
+colorChange.addEventListener("change", colorChanger);
+
+
+function colorChooser(event){
     currentColor = document.getElementById("colorpicker").value;
     currentMode = "normal";
-    colorChoice.classList.add("active");
-    randomColor.classList.remove("active");
-    eraser.classList.remove("active");
-});
-
-
-randomColor.addEventListener("click", event => {
-    currentMode = "random";
-    colorChoice.classList.remove("active");
-    randomColor.classList.add("active");
-    eraser.classList.remove("active");
-});
-
-
-eraser.addEventListener("click", erase);
-function erase(){
-    currentColor = CLEAR_COLOR;
-    currentMode = "normal";
-    colorChoice.classList.remove("active");
-    randomColor.classList.remove("active");
-    eraser.classList.add("active");
+    changeMode(event);
 }
 
+function colorRandomizer(event){
+    currentMode = "random";
+    changeMode(event);
+}
 
-colorChanger.addEventListener("change", event => {
-    currentColor = colorChanger.value;
+function erase(event){
+    currentColor = CLEAR_COLOR;
+    currentMode = "normal";
+    changeMode(event);
+}
+
+function colorChanger(){
+    currentColor = colorChange.value;
     currentMode = "normal";
     colorChoice.classList.add("active");
     randomColor.classList.remove("active");
     eraser.classList.remove("active");
-});
+}
 
 
 function createGrid(xy){
@@ -83,14 +73,25 @@ function createGrid(xy){
             newGrid.style.height = `${gridSize}px`;
             newGrid.style.width = `${gridSize}px`;
             newGrid.classList.add("gridsquare");
-            newGrid.addEventListener("mouseover", paintItt)
+            newGrid.addEventListener("mouseover", paintIt)
             newLine.appendChild(newGrid);
         }
     }
-    //paintIt(heha.value);
 }
 
-function paintItt(e){
+function changeGrid(){
+    currentSize = document.getElementById("grid-number").value;
+    createGrid(currentSize);
+}
+
+function changeMode(e){
+    choices.forEach(function(item){
+        item.classList.remove("active");
+    });
+    e.target.classList.add("active");
+}
+
+function paintIt(e){
     if(currentMode == "normal"){
         e.target.style.backgroundColor = currentColor;
     }
@@ -109,14 +110,5 @@ function clearGrid(){
     });
 }
 
-/*function paintIt(color){
-    let grids = document.querySelectorAll(".gridsquare");
-    grids.forEach(function(item){
-        item.addEventListener("mouseover", event => {
-        item.style.backgroundColor = color;
-        })
-    });
-}*/
 
 createGrid(DEFAULT_SIZE);
-//paintIt(DEFAULT_COLOR);
