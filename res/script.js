@@ -7,6 +7,7 @@ let currentColor = DEFAULT_COLOR;
 let currentMode = DEFAULT_MODE;
 let currentSize = DEFAULT_SIZE;
 
+let mouseDown = false;
 
 let choices = document.querySelectorAll(".choice");
 
@@ -50,25 +51,25 @@ function colorChanger(){
 }
 
 
-function createGrid(xy){
-    if(xy > 100){
-        xy = 100;
+function createGrid(newSize){
+    if(newSize > 100){
+        newSize = 100;
     }
     let mainGrid = document.querySelector(".grid");
     while (mainGrid.firstChild) {
         mainGrid.firstChild.remove();
     }
-    if (xy === ""){
-        xy = 16;
+    if (newSize === ""){
+        newSize = 16;
     }
 
-    let gridSize = 500 / xy;
+    let gridSize = 500 / newSize;
     
-    for(let i = 0; i < xy; i++){
+    for(let i = 0; i < newSize; i++){
         let newLine = document.createElement("div");
         newLine.style.display = "flex";
         mainGrid.appendChild(newLine);
-        for(let j = 0; j < xy; j++){
+        for(let j = 0; j < newSize; j++){
             let newGrid = document.createElement("div");
             newGrid.style.height = `${gridSize}px`;
             newGrid.style.width = `${gridSize}px`;
@@ -92,6 +93,7 @@ function changeMode(e){
 }
 
 function paintIt(e){
+    if(!mouseDown) return;
     if(currentMode == "normal"){
         e.target.style.backgroundColor = currentColor;
     }
@@ -110,5 +112,6 @@ function clearGrid(){
     });
 }
 
-
+window.onmousedown = () => {mouseDown = true;};
+window.onmouseup = () => {mouseDown = false;};
 createGrid(DEFAULT_SIZE);
