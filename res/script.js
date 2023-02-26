@@ -1,12 +1,7 @@
+const DEFAULT_COLOR = "#000000";
 createGrid("","");
-paintIt();
+paintIt(DEFAULT_COLOR);
 
-let generate = document.querySelector("#generate");
-generate.addEventListener("click", event => {
-    let xgrid = document.getElementById("xgrid").value;
-    let ygrid = document.getElementById("ygrid").value;
-    createGrid(xgrid,ygrid);
-});
 
 let clear = document.querySelector("#clear");
 clear.addEventListener("click", clearGrid);
@@ -16,7 +11,22 @@ function changeGrid(){
     createGrid(gridNumber, gridNumber);
 }
 
+let colorChoice = document.getElementById("color-choice");
+colorChoice.addEventListener("click", event => {
+    let currentColor = document.getElementById("colorpicker").value;
+    paintIt(currentColor);
+});
+
+let heha = document.getElementById("colorpicker");
+heha.addEventListener("change", event => {
+    paintIt(heha.value);
+});
+
 function createGrid(x, y){
+    if(x > 100 || y > 100){
+        x = 100;
+        y = 100;
+    }
     let mainGrid = document.querySelector(".grid");
     while (mainGrid.firstChild) {
         mainGrid.firstChild.remove();
@@ -46,21 +56,21 @@ function createGrid(x, y){
             newLine.appendChild(newGrid);
         }
     }
-    paintIt();
+    paintIt("#000000");
 }
 
 function clearGrid(){
 let grids = document.querySelectorAll(".gridsquare");
 grids.forEach(function(item){
-    item.style.backgroundColor = "gray";
+    item.style.backgroundColor = "white";
 });
-paintIt();
+paintIt("#000000");
 }
 
-let whit = document.querySelector("#whit");
-whit.addEventListener("click", whitee);
+let eraser = document.querySelector("#eraser");
+eraser.addEventListener("click", erase);
 
-function whitee(){
+function erase(){
     let grids = document.querySelectorAll(".gridsquare");
     grids.forEach(function(item){
         item.addEventListener("mouseover", event => {
@@ -69,11 +79,11 @@ function whitee(){
     });
 }
 
-function paintIt(){
+function paintIt(color){
     let grids = document.querySelectorAll(".gridsquare");
     grids.forEach(function(item){
         item.addEventListener("mouseover", event => {
-        item.style.backgroundColor = "black";
+        item.style.backgroundColor = color;
         })
     });
 }
