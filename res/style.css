@@ -38,6 +38,15 @@
     padding: 12px 20px;
 }
 
+.choice:hover{
+    cursor: pointer;
+}
+
+.active{
+    background-color: black;
+    color: white;
+}
+
 footer{
     position: fixed;
     left: 0;
