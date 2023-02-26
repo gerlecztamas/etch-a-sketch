@@ -1,3 +1,4 @@
+// default values onload
 const DEFAULT_COLOR = "#4D455D";
 const CLEAR_COLOR = "#ffffffb3";
 const DEFAULT_SIZE = 16;
@@ -17,7 +18,7 @@ let eraser = document.querySelector("#eraser");
 let clear = document.querySelector("#clear");
 let colorChange = document.getElementById("colorpicker");
 
-
+// adding an eventlistener for each option on screen to run their respective functions
 colorChoice.addEventListener("click", colorChooser);
 randomColor.addEventListener("click", colorRandomizer);
 eraser.addEventListener("click", erase);
@@ -42,6 +43,7 @@ function erase(event){
     changeMode(event);
 }
 
+// the program switches to color mode even if only the color is changed without clicking the button
 function colorChanger(){
     currentColor = colorChange.value;
     currentMode = "normal";
@@ -50,19 +52,24 @@ function colorChanger(){
     eraser.classList.remove("active");
 }
 
-
 function createGrid(newSize){
+    if(newSize < 2){
+        alert("Grid size can't be smaller than 2!!");
+        return;
+    }
     if(newSize > 100){
         newSize = 100;
     }
+    if (newSize === ""){
+        newSize = DEFAULT_SIZE;
+    }
+    // clearing the whole grid first so they won't stack
     let mainGrid = document.querySelector(".grid");
     while (mainGrid.firstChild) {
         mainGrid.firstChild.remove();
     }
-    if (newSize === ""){
-        newSize = 16;
-    }
 
+    // calculating the size of each small square and then appending them to the grid like a matrix
     let gridSize = 500 / newSize;
     
     for(let i = 0; i < newSize; i++){
@@ -85,6 +92,7 @@ function changeGrid(){
     createGrid(currentSize);
 }
 
+// each time we select an option only the targeted one will be highlighted differently
 function changeMode(event){
     choices.forEach(function(item){
         item.classList.remove("active");
@@ -92,8 +100,10 @@ function changeMode(event){
     event.target.classList.add("active");
 }
 
+// the cursor only paints if the mouse is pressed so you can exit the grid without problem
 function paintIt(event){
     if(!mouseDown) return;
+    // we only need two modes because the currentColor is always either the chosen color on the colorpicker or the eraser
     if(currentMode == "normal"){
         event.target.style.backgroundColor = currentColor;
     }

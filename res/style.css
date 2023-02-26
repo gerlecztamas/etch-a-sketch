@@ -11,12 +11,6 @@ body{
     color: #4D455D;
 }
 
-.gridsquare{
-    height: 15px;
-    width: 15px;
-    background-color: #ffffffb3;
-}
-
 .container{
     width: 500px;
     margin: 30px auto;
@@ -34,6 +28,12 @@ body{
     width: 500px;
     height: 500px;
     border: 2px solid #4D455D;
+}
+
+.gridsquare{
+    height: 15px;
+    width: 15px;
+    background-color: #ffffffb3;
 }
 
 .first-line, .second-line{
