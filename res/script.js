@@ -1,6 +1,6 @@
 const DEFAULT_COLOR = "#000000";
-createGrid("","");
-paintIt(DEFAULT_COLOR);
+const DEFAULT_SIZE = 16;
+
 
 
 let clear = document.querySelector("#clear");
@@ -8,7 +8,7 @@ clear.addEventListener("click", clearGrid);
 
 function changeGrid(){
     let gridNumber = document.getElementById("grid-number").value;
-    createGrid(gridNumber, gridNumber);
+    createGrid(gridNumber);
 }
 
 let colorChoice = document.getElementById("color-choice");
@@ -22,33 +22,25 @@ heha.addEventListener("change", event => {
     paintIt(heha.value);
 });
 
-function createGrid(x, y){
-    if(x > 100 || y > 100){
-        x = 100;
-        y = 100;
+function createGrid(xy){
+    if(xy > 100){
+        xy = 100;
     }
     let mainGrid = document.querySelector(".grid");
     while (mainGrid.firstChild) {
         mainGrid.firstChild.remove();
     }
-    if (x === "" && y === ""){
-        x = 16;
-        y = 16;
-    }
-    else if (x === ""){
-        x = y;
-    }
-    else if(y === ""){
-        y = x;
+    if (xy === ""){
+        xy = 16;
     }
 
-    let gridSize = 500 / x;
+    let gridSize = 500 / xy;
     
-    for(let i = 0; i < y; i++){
+    for(let i = 0; i < xy; i++){
         let newLine = document.createElement("div");
         newLine.style.display = "flex";
         mainGrid.appendChild(newLine);
-        for(let j = 0; j < x; j++){
+        for(let j = 0; j < xy; j++){
             let newGrid = document.createElement("div");
             newGrid.style.height = `${gridSize}px`;
             newGrid.style.width = `${gridSize}px`;
@@ -56,7 +48,7 @@ function createGrid(x, y){
             newLine.appendChild(newGrid);
         }
     }
-    paintIt("#000000");
+    paintIt(heha.value);
 }
 
 function clearGrid(){
@@ -64,7 +56,7 @@ let grids = document.querySelectorAll(".gridsquare");
 grids.forEach(function(item){
     item.style.backgroundColor = "white";
 });
-paintIt("#000000");
+paintIt(heha.value);
 }
 
 let eraser = document.querySelector("#eraser");
@@ -87,3 +79,6 @@ function paintIt(color){
         })
     });
 }
+
+createGrid(DEFAULT_SIZE);
+paintIt(DEFAULT_COLOR);
